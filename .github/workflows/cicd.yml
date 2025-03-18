@@ -71,9 +71,9 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
-      - name: Debug SSH Connection
+      - name: Copy docker-compose file
         run: |
-          ssh -v ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} exit
+          scp docker-compose.yml ${{ secrets.SERVER_USER }}@${{secrets.SERVER_IP }}:~/ryan/docker-compose.yml
 
       - name: Deploy to server
         run: |
