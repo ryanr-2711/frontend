@@ -69,5 +69,5 @@ jobs:
           echo "Pulling new frontend image..."
           sudo docker-compose pull frontend
           echo "Starting new frontend container..."
-          sudo docker-compose up -d --force-recreate frontend
+          sudo docker-compose up -d --build --pull always --force-recreate
           echo "Deployment complete!"'
