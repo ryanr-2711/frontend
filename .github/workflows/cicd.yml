@@ -38,7 +38,6 @@ jobs:
           build-args: |
             REACT_APP_API_URL=${{ env.REACT_APP_API_URL }}
           tags: |
-            ${{ env.DOCKER_FRONTEND_IMAGE }}:2.0.0
             ${{ env.DOCKER_FRONTEND_IMAGE }}:${{ github.sha }}
           cache-from: type=registry,ref=${{ env.DOCKER_FRONTEND_IMAGE }}:2.0.0
           cache-to: type=inline
