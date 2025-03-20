@@ -38,6 +38,7 @@ jobs:
           build-args: |
             REACT_APP_API_URL=${{ env.REACT_APP_API_URL }}
           tags: |
+            ${{ env.DOCKER_IMAGE }}:latest
             ${{ env.DOCKER_FRONTEND_IMAGE }}:${{ github.sha }}
           cache-from: type=registry,ref=${{ env.DOCKER_FRONTEND_IMAGE }}:2.0.0
           cache-to: type=inline
@@ -63,12 +64,12 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} '
-          echo "Stopping existing containers..."
+          echo "Stopping existing frontend container..."
           sudo docker-compose down
           echo "Removing old images..."
           sudo docker system prune -af
-          echo "Pulling new images..."
-          sudo docker-compose pull --ignore-pull-failures
-          echo "Starting new containers..."
-          sudo docker-compose up -d --force-recreate
-          echo "Deployment complete!" '
+          echo "Pulling new frontend image..."
+          sudo docker-compose pull frontend
+          echo "Starting new frontend container..."
+          sudo docker-compose up -d --force-recreate frontend
+          echo "Deployment complete!"'
