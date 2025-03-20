@@ -40,8 +40,6 @@ jobs:
           tags: |
             ${{ env.DOCKER_FRONTEND_IMAGE }}:latest
             ${{ env.DOCKER_FRONTEND_IMAGE }}:${{ github.sha }}
-          cache-from: type=registry,ref=${{ env.DOCKER_FRONTEND_IMAGE }}:2.0.0
-          cache-to: type=inline
 
   deploy:
     needs: build-and-push
